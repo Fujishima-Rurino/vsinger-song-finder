@@ -1,0 +1,224 @@
+<html>
+
+<head>
+    <title>VSinger Song Finder - UI page</title>
+
+    <style>
+        .parent-container {
+            display: flex;
+            flex-direction: row;
+            justify-self: center;
+            align-items: center;
+            margin: 12px 0px 24px;
+            box-sizing: border-box;
+            max-width: 900px;
+
+            font-size: 18px;
+        }
+
+        .search-scrape-container{
+            max-width: 75%;
+            min-width: 300px;
+            border-radius: 16px;
+            padding: 24px 24px 24px 24px;
+
+            border: 1px solid rgb(211, 220, 230);
+            box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 3px;
+        }
+
+        .input-labels {
+            box-sizing: border-box;
+            color: rgb(11 54 127);
+            color-scheme: light;
+            display: block;
+            font-family: euclid_circular_a,  "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            height: 98px;
+            line-height: 24px;
+            scrollbar-color: rgb(69, 74, 77) rgb(32, 35, 36);
+            text-rendering: optimizelegibility;
+            text-size-adjust: 100%;
+        }
+
+        .action-btns {
+            background-color: purple;
+            width: 100%;
+            border-width: medium;
+            border-style: none;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 18px;
+            font-family: sans-serif;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            margin: 12px 0px;
+        }
+
+        .action-btns:active {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .action-btns:hover {
+            background-color: #4B0082;
+        }
+
+        .thumbnail-result-container{
+            display : flex;
+            flex-direction : row;
+            align-items : center;
+            margin : 8px 2px 8px 2px; /* top right bottom left */
+            outline : 1px solid #424242;
+            border-radius : 15px;
+            overflow : hidden;
+        }
+
+        .thumbnail-result-container:hover{
+            outline : 1px solid #7839ED;
+        }
+
+        .thumbnail-result-thumbnail-image{
+            width: 240px;
+        }
+
+        .text-description-container{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .thumbnail-result-title{
+            font-size   : medium;
+            font-weight : 600;
+            font-family : Noto Sans, Segoe UI, Roboto, sans-serif;
+            margin-left : 15px;
+        }
+
+        .thumbnail-result-title:hover{
+            color: #7839ED;
+            cursor: pointer;
+        }
+
+
+            .entry-details-container{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .song-timing-container{
+                margin-left: 15px;
+                color: #444444;
+                font-size: 11.5px;
+                font-weight: 600;
+            }
+
+            .uploaded-date-container{
+                display: flex;
+                margin: 5px 2px 0px 0px;
+                color: #444444;
+                font-size: 11.5px;
+                font-weight: 600;
+            }
+
+        .thumbnail-result-copy-icon{
+            cursor        : pointer;
+            display       : flex;
+            width         : 16px;
+            height        : 16px;
+            margin        : 0px 5px 2px 2px;
+        }
+
+
+
+        .settings-container{
+            width: 25%;
+            align-self: start;
+            border-radius: 16px;
+            margin: 0px 0px 0px 8px;
+            padding: 18px 24px 18px 24px;
+
+            border: 1px solid rgb(211, 220, 230);
+            box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 3px;
+
+            .checkbox-wrapper {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+            }
+
+            .switch-checkbox {
+                position: relative;
+                width: 80px;
+                height: 20px;
+                appearance: none;
+                background-color: #ccc;
+                outline: none;
+                cursor: pointer;
+                border-radius: 20px;
+                transition: background 0.3s;
+            }
+            .switch-checkbox:checked {
+                background-color: purple;
+            }
+            .switch-checkbox:after {
+                content: '';
+                position: absolute;
+                top: 2px;
+                left: 2px;
+                width: 16px;
+                height: 16px;
+                background-color: white;
+                border-radius: 50%;
+                transition: 0.3s;
+            }
+            .switch-checkbox:checked:after {
+                left: 26px;
+            }
+
+            .switch-checkbox-label{
+                color: rgb(11 54 127);
+                color-scheme: light;
+                font-family: euclid_circular_a,  "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+                font-size: 14px;
+                font-weight: 650;
+                cursor: pointer;
+            }
+        }
+    </style>
+
+    <script src="./clientPageScripts.js"></script>
+</head>
+
+<body>
+    <div class="parent-container">
+        <div class="search-scrape-container">
+            <label class="input-labels">VSinger channel name
+                <input id="vsinger-name" type="text" placeholder="HoushouMarine" style="box-sizing: border-box; width: 100%; padding: 10px; border: 1px solid rgb(204, 204, 204); border-radius: 5px; margin: 8px 0px 20px; outline-color: purple;"></label>
+            <label class="input-labels">Song title
+                <input id="song-title" type="text" placeholder="your treasure box" style="box-sizing: border-box; width: 100%; padding: 10px; margin: 8px 0px 20px; border: 1px solid rgb(204, 204, 204); border-radius: 5px; outline-color: purple;"></label>
+
+            <button class="action-btns" onclick="scrapeSetlists();">
+                Scrape setlists
+            </button>
+            <button class="action-btns" onclick="searchForSong();">
+                Search
+            </button>
+
+            <div id="search-results" style="width: 100%; max-height: 350px; overflow-y: auto;">
+            </div>
+        </div>
+
+        <div class="settings-container">
+            <div class="checkbox-wrapper">
+                <input type="checkbox" id="show-thumbnails-toggle" class="switch-checkbox">
+                <label for="show-thumbnails-toggle">
+                    <span class="switch-checkbox-label">Show the video thumbnails in search results</span>
+                </label>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
